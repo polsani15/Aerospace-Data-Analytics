@@ -10,19 +10,21 @@ from sklearn.metrics import classification_report
 # Labels: 0: Taxi, 1: Takeoff, 2: Cruise, 3: Landing
 def generate_flight_data(samples=1000):
     np.random.seed(42)
-    # Altitude, Speed, Vertical Speed
-    data = np.random.rand(samples, 3) 
+    data = []
     labels = []
-    for i in range(samples):
-        alt = np.random.randint(0, 35000)
-        speed = np.random.randint(0, 500)
-        vs = np.random.randint(-2000, 2000)
+    for _ in range(samples):
+        choice = np.random.choice([0, 1, 2, 3]) # Force equal distribution
+        if choice == 0: # Taxi
+            alt, speed, vs = np.random.randint(0, 50), np.random.randint(0, 30), np.random.randint(-10, 10)
+        elif choice == 1: # Takeoff/Climb
+            alt, speed, vs = np.random.randint(500, 10000), np.random.randint(150, 250), np.random.randint(1000, 2500)
+        elif choice == 2: # Cruise
+            alt, speed, vs = np.random.randint(28000, 38000), np.random.randint(400, 480), np.random.randint(-50, 50)
+        else: # Landing
+            alt, speed, vs = np.random.randint(500, 5000), np.random.randint(130, 180), np.random.randint(-1500, -500)
         
-        if alt < 500 and speed < 40: label = 0 # Taxi
-        elif vs > 500 and alt < 10000: label = 1 # Takeoff/Climb
-        elif alt > 25000: label = 2 # Cruise
-        else: label = 3 # Landing/Descent
-        labels.append(label)
+        data.append([alt, speed, vs])
+        labels.append(choice)
     
     return pd.DataFrame(data, columns=['Alt', 'Speed', 'VS']), np.array(labels)
 
