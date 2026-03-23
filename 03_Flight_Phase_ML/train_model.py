@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import classification_report
 
-# 1. GENERATE SYNTHETIC FLIGHT DATA (Boeing-style FDM data)
+# 1. GENERATE SYNTHETIC FLIGHT DATA
 # Features: [Altitude(ft), Airspeed(knots), Vertical_Speed(fpm)]
 # Labels: 0: Taxi, 1: Takeoff, 2: Cruise, 3: Landing
 def generate_flight_data(samples=1000):
