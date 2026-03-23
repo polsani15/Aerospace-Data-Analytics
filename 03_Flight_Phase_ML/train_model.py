@@ -37,7 +37,6 @@ X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
 # 3. BUILD DEEP LEARNING MODEL (Multi-Layer Perceptron)
-# This hits the "Neural Network" requirement in the JD
 mlp = MLPClassifier(hidden_layer_sizes=(16, 8), max_iter=500, activation='relu')
 print("[PROCESS] Training Neural Network for Flight Phase Classification...")
 mlp.fit(X_train_scaled, y_train)
