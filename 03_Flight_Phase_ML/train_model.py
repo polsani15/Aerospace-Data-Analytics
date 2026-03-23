@@ -40,7 +40,11 @@ mlp = MLPClassifier(hidden_layer_sizes=(16, 8), max_iter=500, activation='relu')
 print("[PROCESS] Training Neural Network for Flight Phase Classification...")
 mlp.fit(X_train_scaled, y_train)
 
-# 4. EVALUATE
+# 4. EVALUATE (Fixed for missing classes)
 predictions = mlp.predict(X_test_scaled)
+present_classes = np.unique(np.concatenate((y_test, predictions)))
+all_labels = ['Taxi', 'Takeoff', 'Cruise', 'Landing']
+target_names = [all_labels[i] for i in present_classes]
+
 print("\n--- Boeing Analytics Model Report ---")
-print(classification_report(y_test, predictions, target_names=['Taxi', 'Takeoff', 'Cruise', 'Landing']))
+print(classification_report(y_test, predictions, target_names=target_names))
